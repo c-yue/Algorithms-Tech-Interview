@@ -104,33 +104,43 @@ Java锁的种类及区别
 一趟排序将无序序列分为独立的两个序列，第一个序列的值均比第二个序列的值小。然后递归地排列两个子序列，以达到整个序列有序。
 
 ```
+# 快速排序
 import random
 class Solution:
-
     def randomPartition(self, arr, low, high):
-        # get a random index/num from arr
-        i = random.randint(low, high)
-        arr[low], arr[i] = arr[i], arr[low]
-        # bigger smaller sep
-        return self.partition(arr, low, high)
-    
+
+        # rand
+        t = random.randint(low, high)
+        arr[low], arr[t] = arr[t], arr[low]
+        # modify arr
+        # sep arr according to index t
+        return self.partition(arr, low, high) # 切分数组的指针
+
     def partition(self, arr, low, high):
+        # sep arr according to index
         pivot = arr[low]
-        # bigger smaller sep
-        i = low + 1
-        for j in range(i, high+1):
+        move_index = low + 1
+
+        for j in range(move_index, high+1):
             if arr[j] < pivot:
-                arr[i], arr[j] = arr[j], arr[i]
-                i += 1
-        arr[i-1], arr[low] = arr[low], arr[i-1]
-        return  i - 1
+                arr[j], arr[move_index] = arr[move_index], arr[j]
+                move_index += 1
+            arr[low], arr[arr_index-1] = arr[move_index-1], arr[low]
+        
+        # 切分数组的指针
+        return move_index - 1
 
     def quickSort(self, arr, low, high):
-        pi = self.randomPartition(arr, low, high)
-        self.quickSort(arr, low, pi-1)
-        self.quickSort(arr, pi+1, high)
+        if low < high
+            # sep bigger/smaller arr
+            # modify arr
+            pi = self.randomPartition(arr, low, high) 
+            # sort sub arr
+            self.quickSort(arr, low, pi-1)
+            self.quickSort(arr, pi+1, high)
+        return arr
 
-    def sortArray(self, nums: list):
+    def sortArray(self, nums) -> List[int]:
         return self.quickSort(nums)
 ```
 
